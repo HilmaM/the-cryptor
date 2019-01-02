@@ -13,7 +13,10 @@ There is a progress bar embeded inside the Decryption Funtion. However, I didn't
 
 Something else I want to achieve is this: 
   #Files should encrypt to the Filepath I choose upon selecting the text file to encrypt. Right now the filepath is static.
+  
   #The Welcome textfield should be disbaled.
+  
   #The Encrypted Text field should be disabled to avert the danger of someone changing any number by accident
+  
   #ETC...............
 
