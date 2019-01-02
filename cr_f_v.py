@@ -2,10 +2,12 @@
 
 # Mapenzi Mudimba
 # Copyright 2018
-#############################################
+###########################################################################
 #   Basic programme for my personal journal #
-#############################################
-#===========================================
+# Uses a cipher module to encrypt text
+# To keep text file indecipherable from onlookers or ciphers
+##########################################################################
+#==========================================================================
 
 # importing modules
 import os, sys, math
@@ -85,17 +87,15 @@ class Notes(tk.Frame):
 
 		# ScrolledTx auto resizable 
 		self.__master.grid_rowconfigure(0, weight=1) 
-		self.__master.grid_columnconfigure(0, weight=1)
-
-		#self.pwdpop = mypop(self.__ntButnN)	
+		self.__master.grid_columnconfigure(0, weight=1)	
 
 		# Pop up menu Tree
 
 		self.__tree = ttk.Treeview(self.__ntScrolledTx, height=35)
 		
-        ##########################################
-        #  		Right click menu				 #
-        ##########################################
+        	##########################################
+        	#  		Right click menu	#
+        	##########################################
 		self.__c_rightClick = tk.Menu(self.__master, tearoff=0, relief="sunken")
 		self.__c_rightClick.add_command(label='Undo', command=self.__undo)
 		self.__c_rightClick.add_separator()
@@ -111,9 +111,9 @@ class Notes(tk.Frame):
 		self.__c_rightClick.add_separator()
 		self.__c_rightClick.add_command(label='Run', command=self.__run)
 		
-        #########################################
-        #		Text formating and arranging	#
-        #########################################
+        	#########################################
+        	#		Text formating and arranging	#
+        	#########################################
 
 		self.__ntScrolledTx.bind('<Button-3>', self.__popup)
 		self.__ntButnN.bind('<Button-1>', self.__decry)
@@ -126,7 +126,7 @@ class Notes(tk.Frame):
 		self.__ntButnN.grid(row=0, column=2, ipadx=4, ipady=1, sticky=W) 
 		
 		#########################################
-		# 	MENU FILE AND ITEMS					#
+		# 	MENU FILE AND ITEMS		#
 		# #######################################
  
 		self.__ntFileMenu.add_command(label="New", 
@@ -191,9 +191,9 @@ class Notes(tk.Frame):
 
 		self.__ntButn.config(command=self.__encry)
 
-    #####################################################
-    #		THE FUNCTIONS OF DEFINED ITEMS ABOVE		#
-    #####################################################
+    	#####################################################
+    	# THE FUNCTIONS OF DEFINED ITEMS ABOVE		#
+    	#####################################################
 
 	def __popup(self, event):
 		self.__c_rightClick.post(event.x_root, event.y_root)
@@ -228,7 +228,6 @@ class Notes(tk.Frame):
 			self.__ntScrolledTx.delete(1.0,END) 
 
 			file = open(self.__file,"r") 
-			#file.readFromFileAndDecrypt()
 			self.__ntScrolledTx.insert(1.0, file.read())
 
 			file.close() 
@@ -304,31 +303,6 @@ class Notes(tk.Frame):
 		if self.__ntScrolledTx.wait_window(self.pwdpop.top):
 			pass
 
-		#else:
-		#	Exception
-		"""
-		txt = range(100)
-
-		pop = tk.Toplevel()
-		tk.Label(pop, text='Please Wait a bit....').grid(row=0, column=0)
-		progress = 0
-		progress_var = tk.DoubleVar()
-		progress_bar = ttk.Progressbar(pop, variable=progress_var, maximum=100)
-		progress_bar.grid(row=1, column=0)#.pack(fill=tk.X, expand=1, side=tk.BOTTOM)
-		pop.pack_slaves()
-
-		progress_step = float(100.0/len(txt))
-		for team in txt:
-			pop.update()
-			sleep(0.05)
-			progress += progress_step
-			progress_var.set(progress)
-			if progress == 100:
-				pop.destroy() """
-
-		#if self.__ntScrolledTx.wait_window(self.pwdpop.top):
-		#	pass
-
 		if txt == "":
 			main_d()
 			file = 'cr_k_i.txt'
@@ -393,7 +367,6 @@ class Notes(tk.Frame):
 		self.__master.mainloop() 
 
 	def __showWelcome(self): 
-		#if self.__file == None: 
 		file = 'welcome.txt'
 		fo = open(file)
 		#fo.read()
@@ -412,8 +385,6 @@ class Notes(tk.Frame):
   
 if __name__ == "__main__":
 	mainloop
-	#app = ProgressBar()
-	#app.pack()
 
 notes = Notes(width=600,height=400) 
 notes.run()
