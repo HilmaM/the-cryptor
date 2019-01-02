@@ -1,0 +1,16 @@
+Welcome! Welcome all. Thank you for using my app. I am so thankful that you have found time to use test my app. I hope you will enjoy using it, and find it helpful to achieve whatever you are planning to use it for.
+
+It took me not less than two months compiling this code. I spent many sleepless nights writing code, configuring and debugging. There are numerous errors I came across. The various solutions doted throughout the internet accoded me many hours of internet and so much amout of data bundles. Even up to now, Iam still discovering more errors in the code of this app. Code improves over time. I agree with you my reader.
+
+This app is based on so many modules which. I am greatly indebted to Al_Sgwaggart, for the rsaCipher module. without which I could have faced challenges on how to write a complete rsacipher module from scratch. I modified a few things here and there, added a few codes and also personalised a few functions. In total, I was trying to build an app so different, so dynamic, yet using the known code samples. I might have achieved one foot into the steps to that envisaged goal. Thank too to all contributors, and those who ask questions on forumns such as STACKOVERFLOW, STACKEXCHANGE, QUORA, WIKIS, DEVZONE, just to name but a few. Some answeres I got were confusing, others were too high. At times I got questions about the errors i was having but there would be no answer, or the answer would add more salt to the wound. However, I used all that knowledge to gain more experience into writing.
+
+I am in an endeavour to refine this code. It might take me some time again. However, my wish is to make this app very user friendly and accessible to many programmers and beginners alike. It would be good for other programmers to use my code as a code sample for theirvarious endeavours.
+
+I am inviting you to evaluate this app to the fullest. Use whatever crash methods you can to test it. I am available to read every comment that comes my way. If ever, by any chance, I am not reachable, i will reach back at the earliset possible time after I get back on track, so don't lose heart in reaching out to me.
+
+my email is hilmap07@gmail.com
+I amazimbabwean
+I amlearning python on my own.
+
+
+
