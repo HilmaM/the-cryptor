@@ -26,4 +26,5 @@ Something else I want to achieve is this:
  * The cr_k_i.txt text file contains items I wrote personally. It is the file whose contents are being encrypted and decrypted. You can change the contents and write your own.
  
  * If the contents of the cr_k_i.txt file are already decrypted, an error  in the terminal command is generated: [ ValueError: not enough values to unpack (expected 3, got 1) ]. Therefore, Encrypt the file first. I am still trying to figure out how to suppress that error, and how to make the Decryption function to give a warning that the file is already decrypted.
-
+ 
++ Encrypting too many times can cause slow downs in decrypting process. Avoid ecnrypting too many times
