@@ -1,6 +1,6 @@
 # the-cryptor
 
-Text File ecnryption programme using python and an RSA Cipher
+Text File encryption programme using python and an RSA Cipher
 
 You have to click the Encrypt Button Once, and the results of encrypted data will automatical appear on the screen. However, If you click the Ecnrypt twice, or more, the program will continue ecnrypting over the ecnrypted file. Therefore to decrypt it to the original text file, you have to continue decrypting the file until it becomes readable text again.
 
