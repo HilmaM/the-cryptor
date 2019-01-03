@@ -34,7 +34,7 @@ class Notes(tk.Frame):
 	
 	__ntWidth = 300
 	__ntHeight = 300
-	__ntScrolledTx = tkscrolled.ScrolledText(__master, undo=True, padx=2, pady=2, wrap='word') 
+	__ntScrolledTx = tkscrolled.ScrolledText(__master, undo=True, padx=2, pady=2, wrap='word', state=NORMAL) 
 	__ntMenuBar = Menu(__master) 
 	__ntFileMenu = Menu(__ntMenuBar, tearoff=0) 
 	__ntEditMenu = Menu(__ntMenuBar, tearoff=0) 
@@ -233,7 +233,8 @@ class Notes(tk.Frame):
 			file.close() 
 
 		
-	def __newFile(self): 
+	def __newFile(self):
+		self.__nrScrolledTx.config(state='normal')
 		self.__master.title("Untitled - Notes") 
 		self.__file = None
 		self.__ntScrolledTx.delete(1.0,END) 
@@ -294,6 +295,7 @@ class Notes(tk.Frame):
 		self.__ntScrolledTx.event_generate("<<Paste>>") 
 
 	def __decry(self):
+		self.__ntScrolledTx.config(state='normal')
 		#self.pwdpop.post(event.x_root, event.y_root)
 		txt = self.__ntScrolledTx.get(1.0, END)
 		
@@ -359,6 +361,7 @@ class Notes(tk.Frame):
 		fil.read()
 		self.__ntScrolledTx.delete(1.0, END)
 		self.__ntScrolledTx.insert(1.0, ft)
+		self.__ntScrolledTx.config(state='disable')
 		fil.close()
 
 	def run(self): 
@@ -369,11 +372,11 @@ class Notes(tk.Frame):
 	def __showWelcome(self): 
 		file = 'welcome.txt'
 		fo = open(file)
-		#fo.read()
 		ts=fo.read()
 		fo.read()
 		self.__ntScrolledTx.delete(1.0, END)
 		self.__ntScrolledTx.insert(1.0, ts)
+		self.__ntScrolledTx.config(state='disable')
 		fo.close()	
 
 	def __showLicence(self):
