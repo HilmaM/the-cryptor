@@ -19,4 +19,9 @@ Something else I want to achieve is this:
   #The Encrypted Text field should be disabled to avert the danger of someone changing any number by accident
   
   #ETC...............
+ 
+ # Things to Note
+ * Do not edit contents in the cr_k_ii.txt and the cr_k_ii.txt. They contain the Private and public keys. Changing any figure in these files can disturbe the behaviour of the encryption process.
+ 
+ * The cr_k_i.txt text file contains items I wrote personally. It is the file whose contents are being encrypted and decrypted. You can change the contents and write your own.
 
