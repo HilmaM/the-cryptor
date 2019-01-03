@@ -28,3 +28,6 @@ Something else I want to achieve is this:
  * If the contents of the cr_k_i.txt file are already decrypted, an error  in the terminal command is generated: [ ValueError: not enough values to unpack (expected 3, got 1) ]. Therefore, Encrypt the file first. I am still trying to figure out how to suppress that error, and how to make the Decryption function to give a warning that the file is already decrypted.
  
 + Encrypting too many times can cause slow downs in decrypting process. Avoid ecnrypting too many times
+
+* When you want to run the program using python on a windows os, you have to specify the absolute path, otherwise the FILEPATH errors will popup. Especially the filepath to the Public and Private Keys have to be specified eg: *file='C:\Users\User\Folder\Folder\file.txt'
+
