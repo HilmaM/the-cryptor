@@ -34,5 +34,5 @@ Something else I want to achieve is this:
 # Changes (12 January 2019)
 I have begun major changes. However, for now there are minor changes I wish to point out.
 * I have cleaned the encryption and decryption codes. One file contains only code that it requires. Other files have been moved to their respective files.
-* I have added a blank file namedfilet.txt. this textfile is blank because it is used to receive a file from the terminal command, or the textbox, before it it passed to the encryption functions. Once it has been used by the encryptor module, it is emptied of its contents immediately. At no point in time should there be a readable textfile wxcept dusing the time the user is typing. After they hit the encrypt button, everything should be a mystery.
+* I have added a blank file named fil_et.txt. This textfile is blank because it is used to receive a file from the terminal command, or the textbox, before it it passed to the encryption functions. Once it has been used by the encryptor module, it is emptied of its contents immediately. At no point in time should there be a readable textfile wxcept dusing the time the user is typing. After they hit the encrypt button, everything should be a mystery.
 
