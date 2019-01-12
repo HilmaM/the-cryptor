@@ -4,6 +4,7 @@
 # http://inventwithpython.com/hacking (BSD Licensed)
 
 import sys
+from tkinter.filedialog import askopenfilename
 
 # IMPORTANT: The block size MUST be less than or equal to the key size!
 # (Note: The block size is in bytes, the key size is in bits. There
@@ -14,13 +15,12 @@ BYTE_SIZE = 256 # One byte has 256 different values.
 def main_d():
     # Runs a test that encrypts a message to a file or decrypts a message
     # from a file.
-    filename = cr_k_i.txt # the file to write to/read from
+    filename = sel_fi()
 
     mode = 'decrypt' # set to 'decrypt'
 
     if mode == 'decrypt':
-        privKeyFilename = cr_k_iii.txt
-        #print('Reading from %s and decrypting...' % (filename))
+        privKeyFilename = r'C:\Users\hazel\Desktop\the_cry\cr_k_iii.txt'
         decryptedText = readFromFileAndDecrypt(filename, privKeyFilename)
 
         txt = decryptedText
@@ -30,6 +30,17 @@ def main_d():
 
     else:
         pass
+
+def sel_fi():
+    
+    fil_e = askopenfilename(initialfile='Untitled.txt', 
+								defaultextension=".txt", 
+								filetypes=[("All Files","*.*"), 
+									("Text Documents","*.txt")])
+
+    with open(fil_e, 'r') as f:
+        read_data = f.read()
+        return read_data   
 
 def getTextFromBlocks(blockInts, messageLength, blockSize=DEFAULT_BLOCK_SIZE):
     # Converts a list of block integers to the original message string.
@@ -100,4 +111,3 @@ def readFromFileAndDecrypt(messageFilename, keyFilename):
 # the main() function.
 if __name__ == '__main__':
     main_d()
-
