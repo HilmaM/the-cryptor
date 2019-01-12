@@ -4,6 +4,7 @@
 # http://inventwithpython.com/hacking (BSD Licensed)
 
 import sys
+from datetime import datetime
 
 # IMPORTANT: The block size MUST be less than or equal to the key size!
 # (Note: The block size is in bytes, the key size is in bits. There
@@ -12,17 +13,15 @@ DEFAULT_BLOCK_SIZE = 128 # 128 bytes
 BYTE_SIZE = 256 # One byte has 256 different values.
 
 def main():
-    # Runs a test that encrypts a message to a file or decrypts a message
-    # from a file.
-    filename = cr_k_i.txt # the file to write to/read from
-    file_name = fil_et.txt
-    mode = 'encrypt' # set to 'encrypt'
+    filename = r'C:\\Users\\hazel\\Desktop\\the_cry\\MesMas\\' + datetime.now().strftime("%Y%m%d-%H%M%S") + '.txt' # the file to write to
+    file_name = r'C:\\Users\\hazel\\Desktop\\the_cry\\fil_et.txt' # File toread from
+    mode = 'encrypt' # set to 'encrypt' or 'decrypt'
 
     if mode == 'encrypt':
         fo = open(file_name)
         message = fo.read()
         fo.close()
-        pubKeyFilename = cr_k_ii.txt
+        pubKeyFilename = r'C:\\Users\\hazel\\Desktop\\the_cry\\cr_k_ii.txt'
         encryptedText = encryptAndWriteToFile(filename, pubKeyFilename, message)
         
     else:
@@ -106,7 +105,7 @@ def encryptAndWriteToFile(messageFilename, keyFilename, message, blockSize=DEFAU
 
     # Write out the encrypted string to the output file.
     encryptedContent = '%s_%s_%s' % (len(message), blockSize, encryptedContent)
-    fo = open(messageFilename, 'w')
+    fo = open(messageFilename, 'w+')
     fo.write(encryptedContent)
     fo.close()
     # Also return the encrypted string.
