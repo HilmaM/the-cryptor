@@ -14,50 +14,22 @@ BYTE_SIZE = 256 # One byte has 256 different values.
 def main_d():
     # Runs a test that encrypts a message to a file or decrypts a message
     # from a file.
-    filename = 'cr_k_i.txt' # the file to write to/read from
-    #filename = text
+    filename = cr_k_i.txt # the file to write to/read from
 
-    mode = 'decrypt' # set to 'encrypt' or 'decrypt'
+    mode = 'decrypt' # set to 'decrypt'
 
-    if mode == 'encrypt':
-        message = '''"Journalists belong in the gutter because that is where the ruling classes throw their guilty secrets." -Gerald Priestland "The Founding Fathers gave the free press the protection it must have to bare the secrets of government and inform the people." -Hugo Black'''
-        pubKeyFilename = 'cr_k_ii.txt'
-        #print('Encrypting and writing to %s...' % (filename))
-        encryptedText = encryptAndWriteToFile(filename, pubKeyFilename, message)
-
-        #print('Encrypted text:')
-        #print(encryptedText)
-
-    elif mode == 'decrypt':
-        privKeyFilename = 'cr_k_iii.txt'
+    if mode == 'decrypt':
+        privKeyFilename = cr_k_iii.txt
         #print('Reading from %s and decrypting...' % (filename))
         decryptedText = readFromFileAndDecrypt(filename, privKeyFilename)
-
-        #print('Decrypted text:')
-        #print(decryptedText)
-        #return decryptedText
 
         txt = decryptedText
         fo = open(filename, 'w')
         fo.write(txt)
         fo.close()
 
-
-def getBlocksFromText(message, blockSize=DEFAULT_BLOCK_SIZE):
-    # Converts a string message to a list of block integers. Each integer
-    # represents 128 (or whatever blockSize is set to) string characters.
-
-    messageBytes = message.encode('ascii') # convert the string to bytes
-
-    blockInts = []
-    for blockStart in range(0, len(messageBytes), blockSize):
-        # Calculate the block integer for this block of text
-        blockInt = 0
-        for i in range(blockStart, min(blockStart + blockSize, len(messageBytes))):
-            blockInt += messageBytes[i] * (BYTE_SIZE ** (i % blockSize))
-        blockInts.append(blockInt)
-    return blockInts
-
+    else:
+        pass
 
 def getTextFromBlocks(blockInts, messageLength, blockSize=DEFAULT_BLOCK_SIZE):
     # Converts a list of block integers to the original message string.
@@ -75,19 +47,6 @@ def getTextFromBlocks(blockInts, messageLength, blockSize=DEFAULT_BLOCK_SIZE):
                 blockMessage.insert(0, chr(asciiNumber))
         message.extend(blockMessage)
     return ''.join(message)
-
-
-def encryptMessage(message, key, blockSize=DEFAULT_BLOCK_SIZE):
-    # Converts the message string into a list of block integers, and then
-    # encrypts each block integer. Pass the PUBLIC key to encrypt.
-    encryptedBlocks = []
-    n, e = key
-
-    for block in getBlocksFromText(message, blockSize):
-        # ciphertext = plaintext ^ e mod n
-        encryptedBlocks.append(pow(block, e, n))
-    return encryptedBlocks
-
 
 def decryptMessage(encryptedBlocks, messageLength, key, blockSize=DEFAULT_BLOCK_SIZE):
     # Decrypts a list of encrypted block ints into the original message
@@ -109,34 +68,6 @@ def readKeyFile(keyFilename):
     fo.close()
     keySize, n, EorD = content.split(',')
     return (int(keySize), int(n), int(EorD))
-
-
-def encryptAndWriteToFile(messageFilename, keyFilename, message, blockSize=DEFAULT_BLOCK_SIZE):
-    # Using a key from a key file, encrypt the message and save it to a
-    # file. Returns the encrypted message string.
-    keySize, n, e = readKeyFile(keyFilename)
-
-    # Check that key size is greater than block size.
-    if keySize < blockSize * 8: # * 8 to convert bytes to bits
-        sys.exit('ERROR: Block size is %s bits and key size is %s bits. The RSA cipher requires the block size to be equal to or greater than the key size. Either decrease the block size or use different keys.' % (blockSize * 8, keySize))
-
-
-    # Encrypt the message
-    encryptedBlocks = encryptMessage(message, (n, e), blockSize)
-
-    # Convert the large int values to one string value.
-    for i in range(len(encryptedBlocks)):
-        encryptedBlocks[i] = str(encryptedBlocks[i])
-    encryptedContent = ','.join(encryptedBlocks)
-
-    # Write out the encrypted string to the output file.
-    encryptedContent = '%s_%s_%s' % (len(message), blockSize, encryptedContent)
-    fo = open(messageFilename, 'w')
-    fo.write(encryptedContent)
-    fo.close()
-    # Also return the encrypted string.
-    return encryptedContent
-
 
 def readFromFileAndDecrypt(messageFilename, keyFilename):
     # Using a key from a key file, read an encrypted message from a file
@@ -164,13 +95,9 @@ def readFromFileAndDecrypt(messageFilename, keyFilename):
     # Decrypt the large int values.
     return decryptMessage(encryptedBlocks, messageLength, (n, d), blockSize)
 
-    # Write decrypted message to file
-    #fo = open(decryptMessage, 'w')
-    #fo.write(decryptMessage)
-    #fo.close()
-
 
 # If rsaCipher.py is run (instead of imported as a module) call
 # the main() function.
 if __name__ == '__main__':
     main_d()
+
