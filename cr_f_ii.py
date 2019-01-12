@@ -4,8 +4,6 @@
 # http://inventwithpython.com/hacking (BSD Licensed)
 
 import sys
-#from cr_f_i import ope_n
-#import tkinter
 
 # IMPORTANT: The block size MUST be less than or equal to the key size!
 # (Note: The block size is in bytes, the key size is in bits. There
@@ -16,32 +14,21 @@ BYTE_SIZE = 256 # One byte has 256 different values.
 def main():
     # Runs a test that encrypts a message to a file or decrypts a message
     # from a file.
-    filename = 'cr_k_i.txt' # the file to write to/read from
-    mode = 'encrypt' # set to 'encrypt' or 'decrypt'
+    filename = cr_k_i.txt # the file to write to/read from
+    file_name = fil_et.txt
+    mode = 'encrypt' # set to 'encrypt'
 
     if mode == 'encrypt':
-        #message = '''"Journalists belong in the gutter because that is where the ruling classes throw their guilty secrets." -Gerald Priestland "The Founding Fathers gave the free press the protection it must have to bare the secrets of government and inform the people." -Hugo Black'''
-        fo = open(filename)
+        fo = open(file_name)
         message = fo.read()
         fo.close()
-        pubKeyFilename = 'cr_k_ii.txt'
-        #print('Encrypting and writing to %s...' % (filename))
+        pubKeyFilename = cr_k_ii.txt
         encryptedText = encryptAndWriteToFile(filename, pubKeyFilename, message)
-
-        #print('Encrypted text:')
-        #print(encryptedText)
-
-        #return(encryptedText)
-
-    elif mode == 'decrypt':
-        privKeyFilename = 'cr_k_iii.txt'
-        #print('Reading from %s and decrypting...' % (filename))
-        decryptedText = readFromFileAndDecrypt(filename, privKeyFilename)
-
-        #print('Decrypted text:')
-        #print(decryptedText)
         
-        #return(decryptedText)
+    else:
+        pass
+
+    return encryptedText
 
 
 def getBlocksFromText(message, blockSize=DEFAULT_BLOCK_SIZE):
@@ -89,19 +76,6 @@ def encryptMessage(message, key, blockSize=DEFAULT_BLOCK_SIZE):
         encryptedBlocks.append(pow(block, e, n))
     return encryptedBlocks
 
-
-def decryptMessage(encryptedBlocks, messageLength, key, blockSize=DEFAULT_BLOCK_SIZE):
-    # Decrypts a list of encrypted block ints into the original message
-    # string. The original message length is required to properly decrypt
-    # the last block. Be sure to pass the PRIVATE key to decrypt.
-    decryptedBlocks = []
-    n, d = key
-    for block in encryptedBlocks:
-        # plaintext = ciphertext ^ d mod n
-        decryptedBlocks.append(pow(block, d, n))
-    return getTextFromBlocks(decryptedBlocks, messageLength, blockSize)
-
-
 def readKeyFile(keyFilename):
     # Given the filename of a file that contains a public or private key,
     # return the key as a (n,e) or (n,d) tuple value.
@@ -137,33 +111,6 @@ def encryptAndWriteToFile(messageFilename, keyFilename, message, blockSize=DEFAU
     fo.close()
     # Also return the encrypted string.
     return encryptedContent
-
-
-def readFromFileAndDecrypt(messageFilename, keyFilename):
-    # Using a key from a key file, read an encrypted message from a file
-    # and then decrypt it. Returns the decrypted message string.
-    keySize, n, d = readKeyFile(keyFilename)
-
-
-    # Read in the message length and the encrypted message from the file.
-    fo = open(messageFilename)
-    content = fo.read()
-    messageLength, blockSize, encryptedMessage = content.split('_')
-    messageLength = int(messageLength)
-    blockSize = int(blockSize)
-
-    # Check that key size is greater than block size.
-    if keySize < blockSize * 8: # * 8 to convert bytes to bits
-        sys.exit('ERROR: Block size is %s bits and key size is %s bits. The RSA cipher requires the block size to be equal to or greater than the key size. Did you specify the correct key file and encrypted file?' % (blockSize * 8, keySize))
-
-    # Convert the encrypted message into large int values.
-    encryptedBlocks = []
-    for block in encryptedMessage.split(','):
-        encryptedBlocks.append(int(block))
-
-    # Decrypt the large int values.
-    return decryptMessage(encryptedBlocks, messageLength, (n, d), blockSize)
-
 
 # If rsaCipher.py is run (instead of imported as a module) call
 # the main() function.
