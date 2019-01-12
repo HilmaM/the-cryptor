@@ -34,11 +34,11 @@ Something else I want to achieve is this:
 # Changes (12 January 2019)
 I have begun major changes. However, for now there are minor changes I wish to point out.
 * I have cleaned the encryption and decryption codes. One file contains only code that it requires. Other files have been moved to their respective files.
-* I have added a blank file named fil_et.txt. This textfile is blank because it is used to receive a file from the terminal command, or the textbox, before it it passed to the encryption functions. Once it has been used by the encryptor module, it is emptied of its contents immediately. At no point in time should there be a readable textfile wxcept dusing the time the user is typing. After they hit the encrypt button, everything should be a mystery.
+* I have added a blank file named fil_et.txt. This textfile is blank because it is used to receive a file from the terminal command, or the textbox, before it it passed to the encryption functions. Once it has been used by the encryptor module, it is emptied of its contents immediately. At no point in time should there be a readable textfile except dusing the time the user is typing. After they hit the encrypt button, everything should be a mystery.
 
 * I added a new file [the_cry.py]. After making so many changes, I realised I needed to make a new look app all together. However, this new look has lots of bugs to be fixed, for instance, the Font changing system automatically zooms the whole app. However, using the small font such as 12 or 14, one can work very well.
-* In the new app, I have added a few functionality,such as being able to select which file has to be encrypted, or decrypted, and I have set the filepath foe the encryption process to dynamic. everytime you write a note, when you hit encypt button, the file opens a new text file depending on where you want it to write to.
-* Anyimprovements, kindly suggest and email me on
+* In the new app, I have added a few functionality, such as being able to select which file has to be encrypted, or decrypted, and I have set the filepath foe the encryption process to dynamic. Everytime you write a note, when you hit encypt button, the file opens a new text file depending on where you want it to save to.
+* Any improvements, kindly suggest and email me on
 [hazelman@live.com]
 Thank you
 
