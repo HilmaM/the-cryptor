@@ -15,32 +15,27 @@ BYTE_SIZE = 256 # One byte has 256 different values.
 def main_d():
     # Runs a test that encrypts a message to a file or decrypts a message
     # from a file.
-    filename = sel_fi()
+
+    file_name = op_n()
+    file_b = r'C:\\Users\\hazel\\Desktop\\the_cry\\cr_k_i.txt'
 
     mode = 'decrypt' # set to 'decrypt'
 
     if mode == 'decrypt':
-        privKeyFilename = r'C:\Users\hazel\Desktop\the_cry\cr_k_iii.txt'
-        decryptedText = readFromFileAndDecrypt(filename, privKeyFilename)
+        privKeyFilename = r'C:\\Users\\hazel\\Desktop\\the_cry\\k_files\\cr_k_iii.txt'
+        decryptedText = readFromFileAndDecrypt(file_name, privKeyFilename)
 
-        txt = decryptedText
-        fo = open(filename, 'w')
-        fo.write(txt)
-        fo.close()
+        fi = decryptedText
+        fl = open(file_b, 'w')
+        fl.write(fi)
+        fl.close()
 
-    else:
-        pass
-
-def sel_fi():
+def op_n():
+    file = askopenfilename(defaultextension=".txt", 
+									filetypes=[("All Files","*.*"), 
+										("Text Documents","*.txt")])
     
-    fil_e = askopenfilename(initialfile='Untitled.txt', 
-								defaultextension=".txt", 
-								filetypes=[("All Files","*.*"), 
-									("Text Documents","*.txt")])
-
-    with open(fil_e, 'r') as f:
-        read_data = f.read()
-        return read_data   
+    return file
 
 def getTextFromBlocks(blockInts, messageLength, blockSize=DEFAULT_BLOCK_SIZE):
     # Converts a list of block integers to the original message string.
@@ -88,7 +83,6 @@ def readFromFileAndDecrypt(messageFilename, keyFilename):
 
     # Read in the message length and the encrypted message from the file.
     fo = open(messageFilename)
-    #fo.write(decryptMessage)
     content = fo.read()
     messageLength, blockSize, encryptedMessage = content.split('_')
     messageLength = int(messageLength)
@@ -111,3 +105,4 @@ def readFromFileAndDecrypt(messageFilename, keyFilename):
 # the main() function.
 if __name__ == '__main__':
     main_d()
+
