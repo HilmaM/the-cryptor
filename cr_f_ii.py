@@ -12,8 +12,9 @@ from datetime import datetime
 DEFAULT_BLOCK_SIZE = 128 # 128 bytes
 BYTE_SIZE = 256 # One byte has 256 different values.
 
-def main():
+def main_c():
     filename = r'C:\\Users\\hazel\\Desktop\\the_cry\\MesMas\\' + datetime.now().strftime("%Y%m%d-%H%M%S") + '.txt' # the file to write to
+ 
     file_name = r'C:\\Users\\hazel\\Desktop\\the_cry\\fil_et.txt' # File toread from
     mode = 'encrypt' # set to 'encrypt' or 'decrypt'
 
@@ -21,7 +22,7 @@ def main():
         fo = open(file_name)
         message = fo.read()
         fo.close()
-        pubKeyFilename = r'C:\\Users\\hazel\\Desktop\\the_cry\\cr_k_ii.txt'
+        pubKeyFilename = r'C:\\Users\\hazel\\Desktop\\the_cry\\k_files\\cr_k_ii.txt'
         encryptedText = encryptAndWriteToFile(filename, pubKeyFilename, message)
         
     else:
@@ -114,4 +115,4 @@ def encryptAndWriteToFile(messageFilename, keyFilename, message, blockSize=DEFAU
 # If rsaCipher.py is run (instead of imported as a module) call
 # the main() function.
 if __name__ == '__main__':
-    main()
+    main_c()
