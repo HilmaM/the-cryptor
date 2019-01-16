@@ -4,12 +4,12 @@ Text File encryption programme using an RSA Cipher in Python
 
 The first version of this program had many errors. Most of the erros were as a results of me not understanding the code I was writing. However, I had the ppassion to write, but putting down what I wanted was the major challenge. However, that obstacle is now moved aside from my face. Thank to the python giants, educators and teachers such as Christian Mayer (finxter.com). I am now able to relate what I am writing.
 
-* To begin, run the [ the_cry.py ] code.
-
 First things forst, this app is meant to be a safe mode app for storing information, or notes, that a user would want to keep discrete. Even if someone gets access to contents of your stored notes, they should not be able to decipher what is within, unless they have the code to unlock them. That is where the idea for me to write this app comes from.
 
 # How it works
 The main source code consists of basically a notepad. The basic notepad where someone writes their notes, or letters, or whatever information they want to. Sometimes people write journals, others write novels, on notepad. the infterface is basically a notepad like the usual notepad but this one is written in Python 3.7
+
+* To begin, run the [ the_cry.py ] code.
 
 Once you open the notepad and have written whatever contents you want to on the screen, there is an option to save your work as general textfile. There is a Save option under the File menu.
 However, if you want to save it in encrypted format, there is a button labelled Encrypt. Hit it once. The text will be converted to encrypted format. The screen will go blank too meaning all the words were collected and sent to another file.
