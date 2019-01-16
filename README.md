@@ -4,6 +4,8 @@ Text File encryption programme using an RSA Cipher in Python
 
 The first version of this program had many errors. Most of the erros were as a results of me not understanding the code I was writing. However, I had the ppassion to write, but putting down what I wanted was the major challenge. However, that obstacle is now moved aside from my face. Thank to the python giants, educators and teachers such as Christian Mayer (finxter.com). I am now able to relate what I am writing.
 
+* To begin, run the [ the_cry.py ] code.
+
 First things forst, this app is meant to be a safe mode app for storing information, or notes, that a user would want to keep discrete. Even if someone gets access to contents of your stored notes, they should not be able to decipher what is within, unless they have the code to unlock them. That is where the idea for me to write this app comes from.
 
 # How it works
