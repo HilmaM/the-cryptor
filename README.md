@@ -18,6 +18,7 @@ However, if you want to save it in encrypted format, there is a button labelled 
       So each new file is stored in a new file filed according to the time, (exaclty to the minute and second specificity)
       + The fil_et.txt and another temporary file, cr_k_i.txt are emptied of their contents.
       + Done!
+      
 + You can write and save as much files as possible and encrypt them. They wont overwrite each other, but will create different files for each encryption you make. It better to create a folder where you will direct the filePath to store the encrypted files.
 
 If one wnted to now access the files they have been writing, there is a decription button ready to do the job. However, at this stage, we need to secure the access to data. When you click the Decrypt buton, a pop up window appears. Enter the PIN--[2143]. A filedialog popups. If the filedialog doesnt popup look at the screen of the login popup and you will see the error notice.
