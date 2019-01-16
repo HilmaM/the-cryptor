@@ -9,33 +9,25 @@
 
 # importing modules
 import os, sys, math
-from tkinter import ttk
 import tkinter as tk
 from tkinter import messagebox
-from tkinter.filedialog import *
-import tkinter.scrolledtext as tkscrolled
+from tkinter.filedialog import askopenfilename, asksaveasfilename
+from tkinter import Menu, Entry, Label, Frame, Tk, Button, END, Text
 from tkinter import Scrollbar
-from cr_f_ii import main # This module fetches the encryption function for encrypitng data stored within a file
-from cr_f_iii import main_d
+from cr_f_ii import main_c
 from pwdpop import mypop
-from tkinter.ttk import Progressbar
-from time import sleep
-import threading
-from PIL import ImageTk, Image
 from datetime import date
 from idlelib.colorizer import ColorDelegator, color_config
 
 class cryptor(object):
-	def __init__(self, **kwargs):
-		#win_width = 600
-		#win_height = 420
-		self.root = root
+	def __init__(self, *args, **kwargs):
+		self.root = root = Tk()
 
-		self.menufont = ("Arial", 12, NORMAL)
+		self.menufont = ("Arial", 12, 'normal')
 		self.MINIMUM_FONT_SIZE = 6
 		self.MAXIMUM_FONT_SIZE = 100
-		self.font_sizes = [8, 9, 10, 11, 12, 14, 18, 20, 22, 24, 30]
-		self.txtfont = ['Lucida Console', 10, 'normal']
+		self.font_sizes = [8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 30]
+		self.txtfont = ['Lucida Console', 11, 'normal']
 
 		# The icon 
 		try: 
@@ -46,6 +38,12 @@ class cryptor(object):
 		# The Title		
 		try:
 			root.wm_title('The Cryptor')
+		except:
+			pass
+		
+		# File Path
+		try:
+			self.__file = None
 		except:
 			pass
 
@@ -71,7 +69,7 @@ class cryptor(object):
 
 		self.fileMenu.add_command(label="Save As", 
 								command=self.saveFileAs, accelerator="Ctrl+Shift+S")
-		# Create a line in the dialog		 
+				 
 		self.fileMenu.add_separator()										 
 		self.fileMenu.add_command(label="Exit", 
 								command=self.quitApplication, accelerator="Ctrl+Q") 
@@ -95,13 +93,23 @@ class cryptor(object):
 		self.editMenu.add_command(label="Paste", 
 							command=self.paste, accelerator="Ctrl+V")		 
 		self.fileMenu.add_separator()
-		# Feature of Run 
-		self.editMenu.add_command(label="Run", 
-							command=self.run, accelerator="F5")	
+			
 		# Feature of editing 
 		self.menuBar.add_cascade(label="Edit", 
 							menu=self.editMenu)	 
 		
+		self.fnMenu = Menu(self.root, tearoff=0)
+
+		self.menuBar.add_cascade(menu=self.fontMenu(self.menuBar), label='Font')
+
+
+		# Feature of Run
+		self.runMenu = Menu(self.root, tearoff=0)
+		self.runMenu.add_command(label="Run", command=self.run,
+							accelerator="F5")
+		
+		self.menuBar.add_cascade(label='Run', menu=self.runMenu)
+
 		# The notepad descriptions
 		self.About = Menu(self.root, tearoff=0)	
 		self.About.add_command(label="Help", 
@@ -115,21 +123,16 @@ class cryptor(object):
 								command=self.showLicence) 
 		self.menuBar.add_cascade(label="About", 
 							menu=self.About)
-						
-		self.fnMenu = Menu(self.root, tearoff=0)
-		#self.fnMenu.add_command(command=self.fontMenu)
-
-		self.menuBar.add_cascade(menu=self.fontMenu(self.menuBar), label='Fonts')
 
 		self.root.config(menu=self.menuBar)
-
+						
 		###############
 		# The Pane
 		###############
 
 		# The Date funct
 		self.day = date.today()
-		self.day.strftime('%d-%m-%Y')
+		self.day.strftime('%D-%M-%Y')
 		self.day1 = date.today()
 		self.day1.strftime('%Y %m %d')
 
@@ -137,17 +140,23 @@ class cryptor(object):
 		# Buttons and Labels	################# The text framework #
 		#						#				#						#
 
-		self.text_frame = text_frame = Frame(root,relief=RIDGE)
-		self.scrolledTx = text = Text(text_frame, name='text', padx=5, pady=4,
-                                wrap='word', relief=RIDGE)
+		self.text_frame = text_frame = Frame(root,relief='ridge')
+		self.scrolledTx = text = Text(text_frame, name='text', padx=5, pady=4, undo=True,
+                                wrap='word', relief='ridge')
+		
 		color_config(text)
+		
+		self.vbar = vbar = Scrollbar(text_frame, orient='vertical', width=20, command=self.scrolledTx.yview)
+		self.scrolledTx.configure(yscrollcommand=self.vbar.set)
 
-		self.vbar = vbar = Scrollbar(text_frame, name='vbar')
-		vbar['command'] = text.yview
-		vbar.pack(side=RIGHT, fill=Y)
-		text['yscrollcommand'] = vbar.set
+		self.scrolledTx.tag_configure("line", font=self.txtfont, justify='right')
 
-		text_frame.pack(fill=BOTH, expand=1)
+		self.li_num = TextLineNumbers(text_frame, width=30, bg='#ddf')
+		self.li_num.attach(text)
+		vbar.pack(side='right', fill='y')
+		self.li_num.pack(side='left', fill='y')
+
+		text_frame.pack(fill='both', expand=1)
 
 		text['font'] = tuple(self.txtfont)
 		shortcut = 'Control'
@@ -159,24 +168,35 @@ class cryptor(object):
 		text.bind('<Control-Button-4>', self.increase_size)
 		text.bind('<Control-Button-5>', self.decrease_size)
 
-		text.pack(fill=BOTH, expand=1)
+		text.pack(fill='both', expand=1)
 
-
-		self.statusBar = Label(root, bd=1, relief=SUNKEN) 
-		self.statusBar.pack(side=BOTTOM, fill='x')
-		self.btn = Button(self.statusBar, text='Encrypt', bg='green', fg='blue', padx=10, pady=2, relief=RAISED, command=self.encry)
-		self.btn.pack(side=LEFT)
-		self.butn = Button(self.statusBar, text='Decrypt', bg='yellow', fg='brown', padx=10, pady=2, relief=RAISED, command=self.decry)
+		self.statusBar = Label(root, bd=1, relief='ridge') 
+		self.statusBar.pack(side='bottom', fill='x')
+		self.corn = Label(self.statusBar, text='C\\/D', width=3, bg='#fff', padx=4, pady=4, relief='ridge')
+		self.corn.pack(side='left')
+		self.btn = Button(self.statusBar, text='Encrypt', bg='yellow', fg='blue', padx=10, pady=2, relief='raised', command=self.encry)
+		self.btn.pack(side='left')
+		self.butn = Button(self.statusBar, text='Decrypt', bg='yellow', fg='brown', padx=10, pady=2, relief='raised', command=self.decry)
 		self.butn.pack(side='left')
-		self.ti_bt = Label(self.statusBar, text=self.day1, bg='#ddd', padx=4, pady=4, relief=RIDGE)
-		self.ti_bt.pack(side=RIGHT)
+		self.wedge = Label(self.statusBar, text='H',font=('Edwardian Script ITC', '12'), width=1, bg='#dcf', padx=4, pady=4, relief='flat', justify='left')
+		self.wedge.pack(side='right')
+		self.ti_bt = Label(self.statusBar, text=self.day, bg='#ddf', fg='brown', padx=4, pady=4, relief='ridge')
+		self.ti_bt.pack(side='right')
+		self.motba = Label(self.statusBar, text='[ x-0 : y-0 ]', width=15, padx=4, pady=4, relief='ridge')
+		self.motba.pack(side='right')
 
-		# The Function for POP_UP Menu	
+		# The events	
 		self.scrolledTx.bind('<Button-3>', self.pop_up)
+		self.scrolledTx.bind("<<Change>>", self._on_change)
+		self.scrolledTx.bind("<Configure>", self._on_change)
+		self.scrolledTx.bind('<Motion>', self.motion)
 
 		#################################################
 		#	THE AREA FOR DEFINING ALL THE FUCNTIONS		#
 		#################################################
+
+	def _on_change(self, event):
+		self.li_num.redraw()
 
 	def pop_up(self, event):
 		self.editMenu.post(event.x_root, event.y_root)
@@ -185,11 +205,12 @@ class cryptor(object):
 		self.decry()
 
 	def quitApplication(self):
-		if messagebox.askyesno("Close Window!", "Do you really want to quit! \nAny unsaved material will be lost"):
+		if messagebox.askyesno("Close Window!", "Do you really want to quit! \
+		\nAny unsaved material will be lost"):
 			self.root.destroy()
 
 	def showAbout(self): 
-		messagebox.showinfo("Cryptor","Completely illegal to open documents without prior authority")
+		messagebox.showinfo("Cryptor","It is illegal to open documents without permission to do so.")
 
 	def openFile(self):
 		self.scrolledTx.config(state='normal')
@@ -217,7 +238,9 @@ class cryptor(object):
 		self.scrolledTx.config(state='normal') 
 		self.root.title("Untitled - Cryptor") 
 		self.__file = None
-		self.scrolledTx.delete(1.0,END) 
+		self.scrolledTx.delete(1.0,END)
+		self.del_fi()
+		self.op_fi() 
 
 	def saveFile(self): 
 
@@ -236,14 +259,15 @@ class cryptor(object):
 				file = open(self.__file,"w") 			
 				file.write(self.scrolledTx.get(1.0,END)) 
 				file.close() 
-				
-				# Change the window title 
-				self.root.title(os.path.basename(self.__file) + " - Cryptor") 
-				
-		else: 
+							
+		else:
+
 			file = open(self.__file,"w") 
-			file.write(self.scrolledTx.get(1.0,END)) 
-			file.close() 
+			file.write(self.scrolledTx.get(1.0,END))
+			file.close()
+
+		# Change the window title 
+		self.root.title(os.path.basename(self.__file) + " - Cryptor") 
         
 	def saveFileAs(self):
 		self.__file = asksaveasfilename(initialfile='Untitled.txt', 
@@ -276,22 +300,10 @@ class cryptor(object):
 
 	def decry(self):
 		self.scrolledTx.config(state='normal')
-		t_xt = self.scrolledTx.get(1.0, END)
-		
 		self.pwdpop = mypop(self.scrolledTx)
-		if self.scrolledTx.wait_window(self.pwdpop.top):
-			pass
-
-		if t_xt == "":
-			main_d()
-			xt = self.fi_let()
-			self.scrolledTx.insert(1.0, xt)
-		
-		else:
-			self.scrolledTx.get(1.0, END)
-			main_d()
-			xt = self.fi_let()
-			self.scrolledTx.insert(1.0, xt)
+		self.scrolledTx.wait_window(self.pwdpop.top)
+		xt = self.fi_let()
+		self.scrolledTx.insert(1.0, xt)
 
 	def sav_fi(self):
 		flt = open(r'C:\\Users\\hazel\Desktop\\the_cry\\fil_et.txt', "w") 
@@ -299,30 +311,31 @@ class cryptor(object):
 		flt.close()
 
 	def del_fi(self):
-		#defi = self.fi_let()
-		delfi = open(r'C:\\Users\\hazel\Desktop\\the_cry\\cr_k_i.txt', 'w')
+		delfi = open(r'C:\\Users\\hazel\Desktop\\the_cry\\fil_et.txt', 'w')
 		delfi.write("")
 		delfi.close()
 
 	def op_fi(self):
-		with open(r'C:\\Users\\hazel\Desktop\\the_cry\\cr_k_i.txt') as f:
-			read_data = f.read()
-			return read_data
+		with open(r'C:\\Users\\hazel\Desktop\\the_cry\\cr_k_i.txt', 'w') as f:
+			wr_data = f.write("")
+			return wr_data
 		
 	def fi_let(self):
-		with open(r'C:\\Users\\hazel\Desktop\\the_cry\\fil_et.txt') as fi:
+		with open(r'C:\\Users\\hazel\Desktop\\the_cry\\cr_k_i.txt') as fi:
 			re_data = fi.read()
 			return re_data
 
 	def encry(self):
 		self.scrolledTx.config(state='normal')
-		self.sav_fi()
-		main()
-		self.del_fi()
-		fie = self.op_fi()
-		self.scrolledTx.delete(1.0, END)
-		self.scrolledTx.insert(1.0, fie)
-		self.scrolledTx.config(state='disable')
+		if self.scrolledTx.get(1.0, END) != "":
+			self.sav_fi()
+			main_c()
+			self.del_fi()
+			self.op_fi()
+			self.scrolledTx.delete(1.0, END)
+		else:
+			messagebox.showwarning('Blank Screen!', 'There is nothing to save!')
+			self.newFile()
 
 	def showWelcome(self):
 		self.scrolledTx.config(state='normal')  
@@ -336,7 +349,8 @@ class cryptor(object):
 		fo.close()
 
 	def showLicence(self):
-		messagebox.showinfo('Cryptor', "Mapenzi Mudimba, 2018.\n\nAllright reserved. No part may be exported into any media\nwithout consent from the author.")
+		messagebox.showinfo('Cryptor', "Mapenzi Mudimba, 2018.\n\nAllright reserved. \
+		\nNo part may be exported into any media\nwithout consent from the author.")
 	
 	def fontMenu(self, master):
 		menu = Menu(master, tearoff=0)
@@ -366,13 +380,51 @@ class cryptor(object):
 		return 'break'
 
 	def update_mousewheel(self, event):
-		# For wheel up, event.delta = 120 on Windows, -1 on darwin.
-		# X-11 sends Control-Button-4 event instead.
 		if event.delta < 0:
 			return self.decrease_size()
 		else:
 			return self.increase_size()
 
-root = tk.Tk()
-cr = cryptor()
-root.mainloop()
+	def motion(self, event):
+  		self.motba.config(text="[X-%s : Y-%s]" % (event.x_root, event.y_root))
+
+################################################
+#
+#	THE CLASS FOR LINE NUMBERS
+#
+################################################
+
+class TextLineNumbers(tk.Canvas):
+	def __init__(self, *args, **kwargs):
+		tk.Canvas.__init__(self, *args, **kwargs)
+		self.textwidget = None
+
+	def attach(self, text_widget):
+		self.textwidget = text_widget
+		color_config(self.textwidget)
+
+	def redraw(self, *args):
+		'''redraw line numbers'''
+		self.delete("all")
+
+		i = self.textwidget.index("@0,0")
+		while True :
+			dline= self.textwidget.dlineinfo(i)
+			if dline is None: break
+			y = dline[1]
+			linenum = str(i).split(".")[0]
+			self.create_text(2,y,anchor="nw", text=linenum, fill='brown')
+			i = self.textwidget.index("%s+1line" % i)
+
+		# Refreshes the canvas widget 30fps
+		self.after(30, self.redraw)
+
+#############################################
+#		MAIN APP RUN			#############
+#############################################
+def main():
+	cr = cryptor()
+	cr.root.mainloop()
+
+if __name__ == '__main__':
+	main()
