@@ -306,22 +306,22 @@ class cryptor(object):
 		self.scrolledTx.insert(1.0, xt)
 
 	def sav_fi(self):
-		flt = open(r'C:\\Users\\hazel\Desktop\\the_cry\\fil_et.txt', "w") 
+		flt = open('fil_et.txt', "w") 
 		flt.write(self.scrolledTx.get(1.0, END)) 
 		flt.close()
 
 	def del_fi(self):
-		delfi = open(r'C:\\Users\\hazel\Desktop\\the_cry\\fil_et.txt', 'w')
+		delfi = open('fil_et.txt', 'w')
 		delfi.write("")
 		delfi.close()
 
 	def op_fi(self):
-		with open(r'C:\\Users\\hazel\Desktop\\the_cry\\cr_k_i.txt', 'w') as f:
+		with open('cr_k_i.txt', 'w') as f:
 			wr_data = f.write("")
 			return wr_data
 		
 	def fi_let(self):
-		with open(r'C:\\Users\\hazel\Desktop\\the_cry\\cr_k_i.txt') as fi:
+		with open('cr_k_i.txt') as fi:
 			re_data = fi.read()
 			return re_data
 
@@ -339,7 +339,7 @@ class cryptor(object):
 
 	def showWelcome(self):
 		self.scrolledTx.config(state='normal')  
-		file = r'C:\\Users\\hazel\\Desktop\\the_cry\\welcome.txt'
+		file = 'welcome.txt'
 		fo = open(file)
 		ts=fo.read()
 		fo.read()
