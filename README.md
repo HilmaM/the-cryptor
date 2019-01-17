@@ -31,6 +31,11 @@ If one wnted to now access the files they have been writing, there is a decripti
     + Read and enjoy
     + Once again, the contents of the temporary files as mentioned above are emptied. However this time there is no auto empter, but this time the emptying has to be done manually by clicking the New File from the File Menu.
     + Another way to empty the temps is by encrypting the file again. However, this process creates a new file. It does not store the file in the the old assigned file. So its upon the user to decide whether to encrypt or just start a new file.
+    
+      # Bugs
+      1. There is still one major bug. When You change the font size, the whole editor zooms in or out. The larger the font the more it zooms in.
+      
+      2. The function for encryption shouldonly encrypt when the screen is not blank. Currently it encrypts even blank screen, or zero index data.
 
 * Any improvements, kindly suggest and email me on
 [hazelman@live.com]
